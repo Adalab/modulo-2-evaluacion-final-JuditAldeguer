@@ -1,0 +1,10 @@
+// modifiers
+.movie {
+  &--favorite {
+    border-color: #f00;
+  }
+
+  &--hidden {
+    opacity: 0.3;
+  }
+}
