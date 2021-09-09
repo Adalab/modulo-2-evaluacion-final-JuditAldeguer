@@ -45,7 +45,7 @@ Gracias por adelantado!!!
 
 ---
 
-## Presentación
+# Presentación
 
 ## Hi, I’m *Judit Aldeguer*👋
 
