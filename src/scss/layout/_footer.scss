@@ -1,7 +1,10 @@
 .page__footer {
-  position: fixed;
   right: 0;
   bottom: 0;
-  padding: 1rem;
-  color: #999;
+  padding: 5px 1rem;
+  color: white;
+  background-color: rgb(96, 121, 168);
+  display: flex;
+  justify-content: flex-end;
+  height: 35px;
 }
