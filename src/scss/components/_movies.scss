@@ -1,5 +1,14 @@
 // modifiers
 .movie {
+  &--container {
+    border: white 2px solid;
+    display: inline-block;
+    padding: 5px;
+  }
+  &--img {
+    width: 150px;
+    height: 250px;
+  }
   &--favorite {
     border-color: #f00;
   }

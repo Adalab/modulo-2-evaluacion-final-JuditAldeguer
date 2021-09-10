@@ -9,20 +9,23 @@ let favorites = [];
 let movies = [];
 
 //Filter
-function isValidMovie(ev) {
+function handleFilter(ev) {
   ev.preventDefault();
-  movies.filter((dataEl) => dataEl.name.toLoweCase().inlcudes(input.value));
+  //   movies.filter((movie) => movie.name.toLowerCase().inlcudes());
   paintMovies();
-  return movies.name.toLoweCase().inlcudes(input.value);
 }
-input.addEventListener('keyup', isValidMovie);
-searchBtn.addEventListener('click', isValidMovie);
+function isValidMovie(movie) {
+  const filterValue = input.value.toLowerCase();
+  return movie.name.toLowerCase().includes(filterValue);
+}
+input.addEventListener('keyup', handleFilter);
+searchBtn.addEventListener('click', handleFilter);
 
 //Favoritos
-function handleMovie() {
+function handleMovie(ev) {
   const selectedMovie = ev.currentTarget.id;
-  const objetClicked = movies.find((movieEl) => {
-    return movieEl.id === selectedMovie;
+  const objetClicked = movies.find((movie) => {
+    return movie.id === selectedMovie;
   }); //desconozco si funcionará-------------------------------------
   const favoritesFound = favorites.findIndex((fav) => {
     return fav.id === selectedMovie;
@@ -58,23 +61,30 @@ function isFavorite() {
 function paintMovies() {
   let html = '';
   let favClass = '';
-  for (const movieEl of movies) {
+  let movieImg = '';
+  for (const movie of movies) {
     let isValidClass;
-    if (isValidMovie(movieEl)) {
+    if (isValidMovie(movie)) {
       isValidClass = '';
     } else {
       isValidClass = 'movie--hidden';
     }
-    const isFav = isFavorite(movieEl);
+    const isFav = isFavorite(movie);
     if (isFav) {
       favClass = 'movie--favorite';
     } else {
       favClass = '';
     }
-    html += `<li class="movies js_movies ${favClass} ${isValidClass}" id="${movie.id}">`;
-    html += `<img class="movie__img" src"${movieEl.image}">`;
-    html += `<h2>${movieEl.name}</h2>`;
-    html += `</li>`;
+
+    if (movie.image === null) {
+      movieImg = `https://via.placeholder.com/210x295/ffffff/666666/?text=${movie.name}`;
+    } else {
+      movieImg = movie.image.medium;
+    }
+    html += `<div class="movie--container js_movies ${favClass} ${isValidClass}" id="${movie.id}">`;
+    html += `<img class="movie--img" src="${movieImg}" alt="${movie.name}">`; //pendiente si no hay imagen poner placeholder
+    html += `<h2>${movie.name}</h2>`;
+    html += `</div>`;
   }
   resultsSection.innerHTML = html;
   listenMovies();
@@ -82,6 +92,7 @@ function paintMovies() {
 
 //Local Storage
 function setInLocalStorage() {
+  debugger;
   const stringMovies = JSON.stringify(movies);
   localStorage.setItem('movies', stringMovies);
 }
@@ -100,9 +111,10 @@ function getFromApi() {
         return objectMovies;
       });
       console.log(movies);
-    });
-  paintMovies();
-  setInLocalStorage();
+      paintMovies();
+      setInLocalStorage();
+    })
+    .catch((err) => console.log('error', err));
 }
 
 //Confirmar si Local Storage esta lleno
@@ -113,6 +125,7 @@ function getLocalStorage() {
   } else {
     const arrayMovies = JSON.parse(localStoragePalettes);
     movies = arrayMovies;
+    console.log(movies);
     paintMovies();
   }
 }
