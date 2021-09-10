@@ -75,14 +75,20 @@ function controlLocalStorage() {
     getFromAPI();
   }
 }
+//paint series
+function paintSeries() {
+  htmlText = `<div class="series--conteiner"></div>`;
+}
 //for search buton Event
 function handleGetSeries(ev) {
   ev.preventDefault();
   controlLocalStorage();
+  paintSeries();
 }
 
 //LISTENERS---------------------------------------------------------------------------------------
 controlLocalStorage();
+//paintFavorites();PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 searchBtn.addEventListener('click', handleGetSeries);
 document
   .querySelector('js_form')
