@@ -4,8 +4,6 @@
 //filter
 const input = document.querySelector('.js_input');
 const searchBtn = document.querySelector('.js_search_btn');
-//search
-const searchSection = document.querySelector('.js_search');
 //favorites
 const favoritesSection = document.querySelector('.js_favorites_section');
 const favoritesResults = document.querySelector('.js_results_favorites');
