@@ -86,20 +86,25 @@ function getImageUrl(serie) {
   }
 }
 //handleFavorite
-// function handleFavorite(ev) {
-//   const selectedSerie = ev.currentTarget;
-//   console.log(selectedSerie);
-//   for (const serie of series) {
-//     let classFav;
-//     if (serie === selectedSerie) {
-//       classFav = 'series--favorite';
-//     } else {
-//       classFav = '';
-//     }
-//   }
-
-//   favoritesResults.innerHTML = htmlText;
-// }
+function handleFavorite(ev) {
+  const selectedSerie = ev.currentTarget;
+  console.log(selectedSerie);
+  const seriesHTML = document.querySelectorAll('.series--container');
+  for (const serieHtml of seriesHTML) {
+    classFav;
+    if (serieHtml.innerHTML === selectedSerie.innerHTML) {
+        classFav = 'series--favorite';
+            // for (const serie of series) {//si no se encuentra en favoritos añadirle clase y en arrayF
+            // debugger;
+            // serieHtml.classList.add(classFav);
+            // favoritesResults.innerHTML += serieHtml;
+            // favorites.push(serie);
+        }
+    } else {
+      classFav = '';
+    }
+  }
+}
 //isFavorite
 function isFavorite(serie) {
   for (const favorite of favorites) {
@@ -114,7 +119,6 @@ function isFavorite(serie) {
 //paint series
 function paintSeries() {
   let htmlText = '';
-  debugger;
   for (const serie of series) {
     getImageUrl(serie);
     isFavorite(serie);
@@ -125,6 +129,7 @@ function paintSeries() {
         </div>`;
   }
   resultsSection.innerHTML = htmlText;
+  favListener();
 }
 //for search buton Event
 function handleGetSeries(ev) {
@@ -133,13 +138,19 @@ function handleGetSeries(ev) {
   paintSeries();
 }
 
-//LISTENERS---------------------------------------------------------------------------------------
+//Initial functions used on loading webpage ------------------------------------------------------
 controlLocalStorage();
+favListener();
 //paintFavorites();PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//LISTENERS---------------------------------------------------------------------------------------
 searchBtn.addEventListener('click', handleGetSeries);
 document
   .querySelector('.js_form')
   .addEventListener('submit', (ev) => ev.preventDefault()); //para evitar que se genere un 'submit' por defecto al dar al intro, puesto que si solo hay un input y un button dentro de un form, este se envia automáticamente al darle al intro.
-for (const serie of series) {
-  serie.addEventListener('click', handleFavorite);
+function favListener() {
+  const series = document.querySelectorAll('.series--container');
+  for (const serie of series) {
+    serie.addEventListener('click', handleFavorite);
+  }
 }
