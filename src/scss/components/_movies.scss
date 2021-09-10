@@ -1,6 +1,10 @@
-// modifiers
+//modifiers
 .movie {
   &--container {
+    // width: 170px;
+    // height: 340px;
+    height: max-content;
+    width: max-content;
     border: white 2px solid;
     display: inline-block;
     padding: 5px;
