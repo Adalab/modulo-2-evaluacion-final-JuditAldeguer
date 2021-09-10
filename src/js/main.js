@@ -60,8 +60,10 @@ function arrayConverter(all) {
 }
 //set in LocalStorage
 function setInLocalStorage() {
-  const stringSeries = JSON.stringify(series);
-  localStorage.setItem(`series${input.value}`, stringSeries);
+  if (input.value !== '') {
+    const stringSeries = JSON.stringify(series);
+    localStorage.setItem(`series${input.value}`, stringSeries);
+  }
 }
 //LocalStorage CONTROL
 function controlLocalStorage() {
@@ -75,13 +77,6 @@ function controlLocalStorage() {
     getFromAPI();
   }
 }
-//for intro Event
-function handleKeyupEvent(ev) {
-  ev.preventDefault();
-  if (ev.keyCode === 13) {
-    handleGetSeries();
-  }
-}
 //for search buton Event
 function handleGetSeries(ev) {
   ev.preventDefault();
@@ -91,4 +86,6 @@ function handleGetSeries(ev) {
 //LISTENERS---------------------------------------------------------------------------------------
 controlLocalStorage();
 searchBtn.addEventListener('click', handleGetSeries);
-input.addEventListener('click', handleKeyupEvent);
+document
+  .querySelector('js_form')
+  .addEventListener('submit', (ev) => ev.preventDefault()); //para evitar que se genere un 'submit' por defecto al dar al intro, puesto que si solo hay un input y un button dentro de un form, este se envia automáticamente al darle al intro.
