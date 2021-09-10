@@ -88,6 +88,7 @@ function setInLocalStorage() {
 
 //Get from API
 function getFromApi() {
+  debugger;
   fetch('https://api.tvmaze.com/search/shows?q=girls')
     .then((response) => response.json())
     .then((answer) => {
@@ -101,7 +102,6 @@ function getFromApi() {
 
 //Confirmar si Local Storage esta lleno
 function getLocalStorage() {
-  debugger;
   const localStoragePalettes = localStorage.getItem('movies');
   if (localStoragePalettes === '[]') {
     getFromApi();
