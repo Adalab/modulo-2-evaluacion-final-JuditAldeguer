@@ -88,14 +88,19 @@ function setInLocalStorage() {
 
 //Get from API
 function getFromApi() {
-  debugger;
   fetch('https://api.tvmaze.com/search/shows?q=girls')
     .then((response) => response.json())
     .then((answer) => {
-      movies = answer; //querría hacer -show pero da error -----------
+      const moviesAll = answer;
+      movies = moviesAll.map((moviesEl) => {
+        const objectMovies = {
+          name: moviesEl.show.name,
+          image: moviesEl.show.image,
+        };
+        return objectMovies;
+      });
       console.log(movies);
     });
-  console.log(movies);
   paintMovies();
   setInLocalStorage();
 }
