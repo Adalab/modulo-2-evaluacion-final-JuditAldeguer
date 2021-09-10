@@ -4,10 +4,10 @@
     // height: 340px;
     height: max-content;
     width: max-content;
-    border: white 2px solid;
+    border: $white 2px solid;
     display: inline-block;
     padding: 5px;
-    background-color: #6079a8;
+    background-color: $dark_blue;
   }
   &--img {
     width: 150px;
@@ -15,7 +15,7 @@
   }
   //modifiers
   &--favorite {
-    background-color: rgb(87, 167, 56);
+    background-color: $green;
   }
 
   // &--hidden {

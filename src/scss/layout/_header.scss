@@ -1,8 +1,8 @@
 .page__header {
   display: flex;
   justify-content: space-evenly;
-  background-color: rgb(96, 121, 168);
+  background-color: $dark_blue;
   padding: 10px 0;
-  color: white;
+  color: $white;
   height: 68px;
 }
