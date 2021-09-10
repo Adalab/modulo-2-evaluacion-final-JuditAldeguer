@@ -1,4 +1,3 @@
-//modifiers
 .movie {
   &--container {
     // width: 170px;
@@ -14,6 +13,7 @@
     width: 150px;
     height: 250px;
   }
+  //modifiers
   &--favorite {
     background-color: rgb(87, 167, 56);
   }
