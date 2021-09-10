@@ -8,22 +8,25 @@ const resetBtn = document.querySelector('.js_reset_btn');
 let favorites = [];
 let movies = [];
 
+//llamamos 1ra función
+getLocalStorage();
+listenMovies(); //quizas se deba quitar---------------------
+
 //Filter
 function handleFilter(ev) {
   ev.preventDefault();
-  //   movies.filter((movie) => movie.name.toLowerCase().inlcudes());
+  getLocalStorage();
   paintMovies();
 }
 function isValidMovie(movie) {
   const filterValue = input.value.toLowerCase();
   return movie.name.toLowerCase().includes(filterValue);
 }
-input.addEventListener('keyup', handleFilter);
 searchBtn.addEventListener('click', handleFilter);
 
 //Favoritos
 function handleMovie(ev) {
-  const selectedMovie = ev.currentTarget.id;
+  const selectedMovie = parseInt(ev.currentTarget.id);
   const objetClicked = movies.find((movie) => {
     return movie.id === selectedMovie;
   }); //desconozco si funcionará-------------------------------------
@@ -37,8 +40,6 @@ function handleMovie(ev) {
   }
   paintMovies(); // en Favoritos lugar: favoritesSection ----------------------------------
 }
-
-//Listener
 function listenMovies() {
   const movies = document.querySelectorAll('.js_movies');
   for (const movie of movies) {
@@ -47,10 +48,12 @@ function listenMovies() {
 }
 
 //isFavorite
-function isFavorite() {
+function isFavorite(movie) {
   const favoriteFound = favorites.find((fav) => {
-    return fav.id === movies.id;
+    return fav.id === movie.id;
   });
+  //   console.log(fav);
+  //   console.log(movie);
   if (favoriteFound === undefined) {
     return false;
   } else {
@@ -87,26 +90,31 @@ function paintMovies() {
     html += `</div>`;
   }
   resultsSection.innerHTML = html;
-  listenMovies();
+  listenMovies(); //quizas se debe quitar-------------------------------------
 }
 
-//Local Storage
+//Local Storage - OK
 function setInLocalStorage() {
-  debugger;
   const stringMovies = JSON.stringify(movies);
   localStorage.setItem('movies', stringMovies);
 }
 
-//Get from API
+//Get from API - OK
 function getFromApi() {
-  fetch('https://api.tvmaze.com/search/shows?q=girls')
-    .then((response) => response.json())
+  fetch(`https://api.tvmaze.com/search/shows?q=${input.value}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw response;
+      }
+      return response.json();
+    })
     .then((answer) => {
       const moviesAll = answer;
       movies = moviesAll.map((moviesEl) => {
         const objectMovies = {
           name: moviesEl.show.name,
           image: moviesEl.show.image,
+          id: moviesEl.show.id,
         };
         return objectMovies;
       });
@@ -114,13 +122,13 @@ function getFromApi() {
       paintMovies();
       setInLocalStorage();
     })
-    .catch((err) => console.log('error', err));
+    .catch((err) => console.error('error', err));
 }
 
-//Confirmar si Local Storage esta lleno
+//Confirmar si Local Storage esta lleno - OK
 function getLocalStorage() {
   const localStoragePalettes = localStorage.getItem('movies');
-  if (localStoragePalettes === '[]') {
+  if (localStoragePalettes === '[]' || 'null') {
     getFromApi();
   } else {
     const arrayMovies = JSON.parse(localStoragePalettes);
@@ -129,4 +137,3 @@ function getLocalStorage() {
     paintMovies();
   }
 }
-getLocalStorage();
