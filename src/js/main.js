@@ -7,12 +7,14 @@ const searchBtn = document.querySelector('.js_search_btn');
 //favorites
 const favoritesSection = document.querySelector('.js_favorites_section');
 const favoritesResults = document.querySelector('.js_results_favorites');
+const resetBtn = document.querySelector('.js_reset_btn');
 //results
 const resultsSection = document.querySelector('.js_results');
-const resetBtn = document.querySelector('.js_reset_btn');
-//global arrays
+//global arrays / variables
 let favorites = [];
 let series = [];
+let classFav;
+let serieImage;
 
 //FUNCTIONS---------------------------------------------------------------------------------------
 //requests to the server API
@@ -75,9 +77,54 @@ function controlLocalStorage() {
     getFromAPI();
   }
 }
+//get image url
+function getImageUrl(serie) {
+  if (serie.image.medium === null) {
+    serieImage = `https://via.placeholder.com/150x250/7C7E29/666666/?text=${serie.name}`;
+  } else {
+    serieImage = serie.image.medium;
+  }
+}
+//handleFavorite
+// function handleFavorite(ev) {
+//   const selectedSerie = ev.currentTarget;
+//   console.log(selectedSerie);
+//   for (const serie of series) {
+//     let classFav;
+//     if (serie === selectedSerie) {
+//       classFav = 'series--favorite';
+//     } else {
+//       classFav = '';
+//     }
+//   }
+
+//   favoritesResults.innerHTML = htmlText;
+// }
+//isFavorite
+function isFavorite(serie) {
+  for (const favorite of favorites) {
+    if (favorite === serie) {
+      classFav = 'series--favorite';
+    } else {
+      classFav = '';
+    }
+  }
+  classFav = '';
+}
 //paint series
 function paintSeries() {
-  htmlText = `<div class="series--conteiner"></div>`;
+  let htmlText = '';
+  debugger;
+  for (const serie of series) {
+    getImageUrl(serie);
+    isFavorite(serie);
+    htmlText += `
+        <div class="series--container ${classFav}">
+            <img src="${serieImage}" alt="${serie.name}" clas="img"></img>
+            <h2>${serie.name}</h2>
+        </div>`;
+  }
+  resultsSection.innerHTML = htmlText;
 }
 //for search buton Event
 function handleGetSeries(ev) {
@@ -91,5 +138,8 @@ controlLocalStorage();
 //paintFavorites();PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 searchBtn.addEventListener('click', handleGetSeries);
 document
-  .querySelector('js_form')
+  .querySelector('.js_form')
   .addEventListener('submit', (ev) => ev.preventDefault()); //para evitar que se genere un 'submit' por defecto al dar al intro, puesto que si solo hay un input y un button dentro de un form, este se envia automáticamente al darle al intro.
+for (const serie of series) {
+  serie.addEventListener('click', handleFavorite);
+}

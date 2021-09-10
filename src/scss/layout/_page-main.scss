@@ -1,9 +1,9 @@
 main {
   display: flex;
   flex-direction: row;
-  height: 90%;
   min-height: 330px;
   height: 85vh;
+  overflow-wrap: scroll;
 }
 
 .search {
@@ -26,4 +26,5 @@ main {
   border: white solid 1px;
   background-color: cadetblue;
   width: 75%;
+  height: max-content;
 }
