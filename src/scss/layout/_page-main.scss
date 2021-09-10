@@ -2,6 +2,7 @@ main {
   display: flex;
   flex-direction: row;
   height: 90%;
+  min-height: 330px;
 }
 
 .search {
@@ -11,6 +12,10 @@ main {
   width: 25%;
   @include tablet {
     min-width: 255px;
+  }
+  &--favorite {
+    padding: 5px;
+    text-align: center;
   }
 }
 .result {
