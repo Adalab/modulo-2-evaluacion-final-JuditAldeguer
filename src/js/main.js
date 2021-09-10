@@ -1,6 +1,7 @@
 'use strict';
 const searchSection = document.querySelector('.js_search');
 const favoritesSection = document.querySelector('.js_favorites_section');
+const favoritesResults = document.querySelector('.js_results_favorites');
 const input = document.querySelector('.js_input');
 const searchBtn = document.querySelector('.js_search_btn');
 const resultsSection = document.querySelector('.js_results');
@@ -16,34 +17,34 @@ listenMovies(); //quizas se deba quitar---------------------
 function handleFilter(ev) {
   ev.preventDefault();
   getLocalStorage();
-  paintMovies();
-}
-function isValidMovie(movie) {
-  const filterValue = input.value.toLowerCase();
-  return movie.name.toLowerCase().includes(filterValue);
 }
 searchBtn.addEventListener('click', handleFilter);
+window.addEventListener('load', paintMovies);
+// function isValidMovie(movie) {
+//   const filterValue = input.value.toLowerCase();
+//   return movie.name.toLowerCase().includes(filterValue);
+// }//funcion para hacer de buscador entre las ya descargadas - actualemnte no es útil
 
 //Favoritos
 function handleMovie(ev) {
   const selectedMovie = parseInt(ev.currentTarget.id);
   const objetClicked = movies.find((movie) => {
     return movie.id === selectedMovie;
-  }); //desconozco si funcionará-------------------------------------
+  });
   const favoritesFound = favorites.findIndex((fav) => {
     return fav.id === selectedMovie;
-  }); //desconozco si funcionará-------------------------------------
+  });
   if (favoritesFound === -1) {
     favorites.push(objetClicked);
   } else {
     favorites.splice(favoritesFound, 1);
   }
-  paintMovies(); // en Favoritos lugar: favoritesSection ----------------------------------
 }
 function listenMovies() {
-  const movies = document.querySelectorAll('.js_movies');
-  for (const movie of movies) {
-    movie.addEventListener('click', handleMovie);
+  debugger;
+  const moviesHtml = document.querySelectorAll('.js_movies');
+  for (const movieEl of moviesHtml) {
+    movieEl.addEventListener('click', handleMovie);
   }
 }
 
@@ -52,13 +53,20 @@ function isFavorite(movie) {
   const favoriteFound = favorites.find((fav) => {
     return fav.id === movie.id;
   });
-  //   console.log(fav);
-  //   console.log(movie);
   if (favoriteFound === undefined) {
     return false;
   } else {
     return true;
   }
+}
+//Pintar is favorite
+function paintFavorites() {
+  let favoritesHtlm = '';
+  for (const favoriteMovie of favorites) {
+    favoritesHtlm = `<div class="movie--container js_movies movie--favorite" id="${favoriteMovie.id}"><img class="movie--img" src="${favoriteMovie.image}" alt="${favoriteMovie.name}"><h2>${favoriteMovie.name}</h2></div>`;
+    favoriteMovie.name;
+  }
+  favoritesResults.innerHTML = favoritesHtlm;
 }
 //Pintar
 function paintMovies() {
@@ -66,12 +74,12 @@ function paintMovies() {
   let favClass = '';
   let movieImg = '';
   for (const movie of movies) {
-    let isValidClass;
-    if (isValidMovie(movie)) {
-      isValidClass = '';
-    } else {
-      isValidClass = 'movie--hidden';
-    }
+    // let isValidClass;
+    // if (isValidMovie(movie)) {
+    //   isValidClass = '';
+    // } else {
+    //   isValidClass = 'movie--hidden';
+    // }
     const isFav = isFavorite(movie);
     if (isFav) {
       favClass = 'movie--favorite';
@@ -84,10 +92,11 @@ function paintMovies() {
     } else {
       movieImg = movie.image.medium;
     }
-    html += `<div class="movie--container js_movies ${favClass} ${isValidClass}" id="${movie.id}">`;
+    html += `<div class="movie--container js_movies ${favClass} " id="${movie.id}">`; //posibilidad añadir ${isValidClass} - actualmente no hace ninguna funcion
     html += `<img class="movie--img" src="${movieImg}" alt="${movie.name}">`; //pendiente si no hay imagen poner placeholder
     html += `<h2>${movie.name}</h2>`;
     html += `</div>`;
+    paintFavorites();
   }
   resultsSection.innerHTML = html;
   listenMovies(); //quizas se debe quitar-------------------------------------
