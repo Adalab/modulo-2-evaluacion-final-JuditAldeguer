@@ -34,6 +34,7 @@ function getFromAPI() {
       }
     })
     .then((all) => arrayConverter(all))
+    .then(() => paintSeries())
     .catch((err) => console.error(err));
 }
 //function conver array
@@ -76,15 +77,9 @@ function controlLocalStorage() {
     console.log('NOT in LocalStorage');
     getFromAPI();
   }
+  paintSeries();
 }
-//get image url
-function getImageUrl(serie) {
-  if (serie.image === null) {
-    serieImage = `https://via.placeholder.com/210x295/7C7E29/ffff/?text=${serie.name}`;
-  } else {
-    serieImage = serie.image.medium;
-  }
-}
+//FAVORITES----------------
 //handleFavorite
 function handleFavorite(ev) {
   const selectedSerie = ev.currentTarget;
@@ -93,14 +88,30 @@ function handleFavorite(ev) {
   for (const serieHtml of seriesHTML) {
     classFav;
     if (serieHtml.innerHTML === selectedSerie.innerHTML) {
+      debugger;
       classFav = 'series--favorite';
-      // for (const serie of series) {//si no se encuentra en favoritos añadirle clase y en arrayF
-      // debugger;
-      // serieHtml.classList.add(classFav);
-      // favoritesResults.innerHTML += serieHtml;
-      // favorites.push(serie);}
+      serieHtml.classList.toggle(classFav);
+      // favorites.push(serieHtml);
+      arrayFavUpdate(serieHtml); // función
+      favoritesResults.innerHTML += serieHtml;
     } else {
       classFav = '';
+    }
+    paintFavorites();
+  }
+}
+//PaintFavorites
+function paintFavorites() {
+  console.log(favorites);
+  //favoritesResults.innerHTML += serieHtml;
+}
+//update Favorites array
+function arrayFavUpdate(serieHtml) {
+  for (let i = 0; i < series.length; i++) {
+    const serie = series[i];
+    if (serieHtml.classList.contains('series--favorite')) {
+      favorites.push(serieHtml);
+    } else {
     }
   }
 }
@@ -114,6 +125,15 @@ function isFavorite(serie) {
     }
   }
   classFav = '';
+}
+//SERIES------------
+//get image url
+function getImageUrl(serie) {
+  if (serie.image === null) {
+    serieImage = `https://via.placeholder.com/210x295/7C7E29/ffff/?text=${serie.name}`;
+  } else {
+    serieImage = serie.image.medium;
+  }
 }
 //paint series
 function paintSeries() {
@@ -134,13 +154,11 @@ function paintSeries() {
 function handleGetSeries(ev) {
   ev.preventDefault();
   controlLocalStorage();
-  paintSeries();
 }
-
 //Initial functions used on loading webpage ------------------------------------------------------
-controlLocalStorage();
-favListener();
-//paintFavorites();PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+document.addEventListener('load', handleGetSeries);
+document.addEventListener('load', paintFavorites);
+document.addEventListener('load', favListener);
 
 //LISTENERS---------------------------------------------------------------------------------------
 searchBtn.addEventListener('click', handleGetSeries);
