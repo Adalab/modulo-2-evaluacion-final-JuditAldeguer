@@ -66,6 +66,7 @@ function setInLocalStorage() {
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
   if (favorites !== []) {
+    //da error-------------------------------------
     const stringFavorites = JSON.stringify(favorites);
     localStorage.setItem('fav', stringFavorites);
   }
@@ -83,7 +84,7 @@ function controlLocalStorage() {
   }
   paintSeries();
   const localStorageFavorites = localStorage.getItem('favorites');
-  if (localStorageFavorites !== '[]') {
+  if (localStorageFavorites !== null || []) {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
@@ -114,7 +115,7 @@ function handleFavorite(ev) {
     }
   }
   paintFavorites();
-  setInLocalStorage();
+  //setInLocalStorage();//nuevo, da error a partir de aqui--------------------------------
 }
 
 //update Favorites array
@@ -135,7 +136,6 @@ function arrayFavUpdate(selectedSerie) {
 function paintFavorites() {
   console.log(favorites);
   let favHtml = '';
-  favorites = [];
   if (favorites !== []) {
     //da error--------------------------------------------
     for (const favorite of favorites) {
