@@ -61,17 +61,20 @@ function arrayConverter(all) {
 }
 //set in LocalStorage
 function setInLocalStorage() {
+  debugger;
   if (input.value !== '') {
     const stringSeries = JSON.stringify(series);
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
-  if (favorites !== []) {
+  if (favorites !== [] || '') {
+    //No debería entrer por aqui
     const stringFavorites = JSON.stringify(favorites);
     localStorage.setItem('favorites', stringFavorites);
   }
 }
 //LocalStorage CONTROL
 function controlLocalStorage() {
+  debugger;
   const localStorageSeries = localStorage.getItem(`series${input.value}`);
   const StoragedSeries = JSON.parse(localStorageSeries);
   if (StoragedSeries !== null) {
@@ -83,12 +86,15 @@ function controlLocalStorage() {
   }
   paintSeries();
   const localStorageFavorites = localStorage.getItem('favorites');
-  const StoragedFavorites = JSON.parse(localStorageFavorites);
-  if (StoragedFavorites !== null) {
+  console.log(localStorageFavorites);
+  if (localStorageFavorites !== null || []) {
+    const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
+    console.log(favorites);
   } else {
     console.log('FAVORITES NOT in LocalStorage');
+    console.log(favorites);
   }
   paintFavorites();
 }
@@ -143,6 +149,7 @@ function paintFavorites() {
     </li>`;
   }
   favoritesResults.innerHTML = favHtml;
+  setInLocalStorage();
 }
 //isFavorite
 function isFavorite(serie) {
@@ -195,7 +202,7 @@ function handleGetSeries(ev) {
 }
 //Initial functions used on loading webpage ------------------------------------------------------
 document.addEventListener('load', handleGetSeries);
-document.addEventListener('load', paintFavorites);
+paintFavorites();
 document.addEventListener('load', favListener);
 
 //LISTENERS---------------------------------------------------------------------------------------
