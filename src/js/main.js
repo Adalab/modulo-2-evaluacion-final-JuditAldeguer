@@ -5,7 +5,6 @@
 const input = document.querySelector('.js_input');
 const searchBtn = document.querySelector('.js_search_btn');
 //favorites
-const favoritesSection = document.querySelector('.js_favorites_section');
 const favoritesResults = document.querySelector('.js_results_favorites');
 const resetBtn = document.querySelector('.js_reset_btn');
 //results
@@ -15,6 +14,7 @@ let favorites = [];
 let series = [];
 let classFav;
 let serieImage;
+let favoriteImage;
 
 //FUNCTIONS---------------------------------------------------------------------------------------
 //requests to the server API
@@ -82,13 +82,17 @@ function controlLocalStorage() {
 //FAVORITES----------------
 //handleFavorite
 function handleFavorite(ev) {
+  //const selectedSerie = parseInt(ev.currentTarget.id);
   const selectedSerie = ev.currentTarget;
   console.log(selectedSerie);
+  //const selectedId = selectedSerie.id;
   const seriesHTML = document.querySelectorAll('.series--container');
   for (const serieHtml of seriesHTML) {
+    //for (const serie of series) {
     classFav;
+    debugger;
     if (serieHtml.innerHTML === selectedSerie.innerHTML) {
-      debugger;
+      //if (serie.id === selectedSerie.id) {
       classFav = 'series--favorite';
       serieHtml.classList.toggle(classFav);
       // favorites.push(serieHtml);
@@ -100,20 +104,42 @@ function handleFavorite(ev) {
     paintFavorites();
   }
 }
+
+//update Favorites array
+function arrayFavUpdate(serieHtml) {
+  //for (let i = 0; i < series.length; i++) {
+  //const serie = series[i];
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === selectedMovie;
+  });
+  if (serieHtml.classList.contains('series--favorite')) {
+    favorites.push(serieHtml);
+    if (favoritesFound === -1) {
+      favorites.push(objetClicked);
+    } else {
+      favorites.splice(favoritesFound, 1);
+    }
+    // } else {
+    //   if (favorites) {
+    //     favorites.remove(serieHtml);
+    //   }
+  }
+  // }
+}
 //PaintFavorites
 function paintFavorites() {
   console.log(favorites);
-  //favoritesResults.innerHTML += serieHtml;
-}
-//update Favorites array
-function arrayFavUpdate(serieHtml) {
-  for (let i = 0; i < series.length; i++) {
-    const serie = series[i];
-    if (serieHtml.classList.contains('series--favorite')) {
-      favorites.push(serieHtml);
-    } else {
-    }
+  let favHtml = '';
+  for (const favorite of favorites) {
+    getImageUrlFav(favorite);
+    favHtml = `
+    <li class="favorites--container series--favorite" id="${favorite.id}">
+        <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
+        <h2>${favorite.name}</h2>
+        <button class="favorites--buttonX">X</button>
+    </li>`;
   }
+  favoritesResults.innerHTML += favHtml;
 }
 //isFavorite
 function isFavorite(serie) {
@@ -126,6 +152,15 @@ function isFavorite(serie) {
   }
   classFav = '';
 }
+//get image url
+function getImageUrlFav(favorite) {
+  if (favorite.image === null) {
+    favoriteImage = `https://via.placeholder.com/210x295/7C7E29/ffff/?text=${favorite.name}`;
+  } else {
+    favoriteImage = favorite.image.medium;
+  }
+}
+
 //SERIES------------
 //get image url
 function getImageUrl(serie) {
@@ -137,13 +172,13 @@ function getImageUrl(serie) {
 }
 //paint series
 function paintSeries() {
-  let htmlText = '';
+  let htmlText = '<h3>Search result</h3>';
   for (const serie of series) {
     getImageUrl(serie);
     isFavorite(serie);
     htmlText += `
-        <div class="series--container ${classFav}">
-            <img src="${serieImage}" alt="${serie.name}" clas="img"></img>
+        <div class="series--container ${classFav}" id="${serie.id}">
+            <img src="${serieImage}" alt="${serie.name}" class="img"></img>
             <h2>${serie.name}</h2>
         </div>`;
   }
@@ -166,8 +201,8 @@ document
   .querySelector('.js_form')
   .addEventListener('submit', (ev) => ev.preventDefault()); //para evitar que se genere un 'submit' por defecto al dar al intro, puesto que si solo hay un input y un button dentro de un form, este se envia automáticamente al darle al intro.
 function favListener() {
-  const series = document.querySelectorAll('.series--container');
-  for (const serie of series) {
-    serie.addEventListener('click', handleFavorite);
+  const seriesHTML = document.querySelectorAll('.series--container');
+  for (const serieHTML of seriesHTML) {
+    serieHTML.addEventListener('click', handleFavorite);
   }
 }

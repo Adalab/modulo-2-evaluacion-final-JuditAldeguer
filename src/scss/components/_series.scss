@@ -22,3 +22,19 @@
   //   opacity: 0.3;
   // }
 }
+
+.favorites {
+  &--container {
+    text-decoration: none;
+    display: inline;
+  }
+  &--img {
+    width: 50px;
+    height: 100px;
+  }
+  &--buttonX {
+    position: relative;
+    top: 0;
+    float: right;
+  }
+}
