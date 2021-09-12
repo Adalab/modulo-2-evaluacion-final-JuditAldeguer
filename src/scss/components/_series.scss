@@ -1,0 +1,40 @@
+.series {
+  &--container {
+    // width: 170px;
+    // height: 340px;
+    height: max-content;
+    width: max-content;
+    border: $white 2px solid;
+    display: inline-block;
+    padding: 5px;
+    background-color: $dark_blue;
+  }
+  &--img {
+    width: 210px;
+    height: 295px;
+  }
+  //modifiers
+  &--favorite {
+    background-color: $green;
+  }
+
+  // &--hidden {
+  //   opacity: 0.3;
+  // }
+}
+
+.favorites {
+  &--container {
+    text-decoration: none;
+    display: inline;
+  }
+  &--img {
+    width: 50px;
+    height: 100px;
+  }
+  &--Xbutton {
+    position: relative;
+    top: 0;
+    float: right;
+  }
+}
