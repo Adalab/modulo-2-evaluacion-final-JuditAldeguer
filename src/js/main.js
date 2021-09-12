@@ -79,8 +79,8 @@ function controlLocalStorage() {
 }
 //get image url
 function getImageUrl(serie) {
-  if (serie.image.medium === null) {
-    serieImage = `https://via.placeholder.com/150x250/7C7E29/666666/?text=${serie.name}`;
+  if (serie.image === null) {
+    serieImage = `https://via.placeholder.com/210x295/7C7E29/ffff/?text=${serie.name}`;
   } else {
     serieImage = serie.image.medium;
   }
@@ -93,13 +93,12 @@ function handleFavorite(ev) {
   for (const serieHtml of seriesHTML) {
     classFav;
     if (serieHtml.innerHTML === selectedSerie.innerHTML) {
-        classFav = 'series--favorite';
-            // for (const serie of series) {//si no se encuentra en favoritos añadirle clase y en arrayF
-            // debugger;
-            // serieHtml.classList.add(classFav);
-            // favoritesResults.innerHTML += serieHtml;
-            // favorites.push(serie);
-        }
+      classFav = 'series--favorite';
+      // for (const serie of series) {//si no se encuentra en favoritos añadirle clase y en arrayF
+      // debugger;
+      // serieHtml.classList.add(classFav);
+      // favoritesResults.innerHTML += serieHtml;
+      // favorites.push(serie);}
     } else {
       classFav = '';
     }
