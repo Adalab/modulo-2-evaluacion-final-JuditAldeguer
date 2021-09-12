@@ -37,7 +37,7 @@ function getFromAPI() {
     .then(() => paintSeries())
     .catch((err) => console.error(err));
 }
-//function conver array
+//function conver array from API
 function arrayConverter(all) {
   let Object;
   if (all.length > 10) {
@@ -65,6 +65,10 @@ function setInLocalStorage() {
     const stringSeries = JSON.stringify(series);
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
+  if (favorites !== []) {
+    const stringFavorites = JSON.stringify(favorites);
+    localStorage.setItem('favorites', stringFavorites);
+  }
 }
 //LocalStorage CONTROL
 function controlLocalStorage() {
@@ -72,12 +76,21 @@ function controlLocalStorage() {
   const StoragedSeries = JSON.parse(localStorageSeries);
   if (StoragedSeries !== null) {
     series = StoragedSeries;
-    console.log('Already in LocalStorage');
+    console.log('SERIES already in LocalStorage');
   } else {
-    console.log('NOT in LocalStorage');
+    console.log('SERIES NOT in LocalStorage');
     getFromAPI();
   }
   paintSeries();
+  const localStorageFavorites = localStorage.getItem('favorites');
+  const StoragedFavorites = JSON.parse(localStorageFavorites);
+  if (StoragedFavorites !== null) {
+    favorites = StoragedFavorites;
+    console.log('FAVORITES already in LocalStorage');
+  } else {
+    console.log('FAVORITES NOT in LocalStorage');
+  }
+  paintFavorites();
 }
 //FAVORITES----------------
 //handleFavorite
@@ -122,14 +135,14 @@ function paintFavorites() {
   let favHtml = '';
   for (const favorite of favorites) {
     getImageUrlFav(favorite);
-    favHtml = `
+    favHtml += `
     <li class="favorites--container series--favorite" id="${favorite.id}">
         <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
         <h2>${favorite.name}</h2>
         <button class="favorites--buttonX">X</button>
     </li>`;
   }
-  favoritesResults.innerHTML += favHtml;
+  favoritesResults.innerHTML = favHtml;
 }
 //isFavorite
 function isFavorite(serie) {
