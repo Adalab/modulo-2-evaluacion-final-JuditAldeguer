@@ -61,20 +61,17 @@ function arrayConverter(all) {
 }
 //set in LocalStorage
 function setInLocalStorage() {
-  debugger;
   if (input.value !== '') {
     const stringSeries = JSON.stringify(series);
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
-  if (favorites !== [] || '') {
-    //No debería entrer por aqui
+  if (favorites !== []) {
     const stringFavorites = JSON.stringify(favorites);
-    localStorage.setItem('favorites', stringFavorites);
+    localStorage.setItem('fav', stringFavorites);
   }
 }
 //LocalStorage CONTROL
 function controlLocalStorage() {
-  debugger;
   const localStorageSeries = localStorage.getItem(`series${input.value}`);
   const StoragedSeries = JSON.parse(localStorageSeries);
   if (StoragedSeries !== null) {
@@ -86,17 +83,15 @@ function controlLocalStorage() {
   }
   paintSeries();
   const localStorageFavorites = localStorage.getItem('favorites');
-  console.log(localStorageFavorites);
-  if (localStorageFavorites !== null || []) {
+  if (localStorageFavorites !== '[]') {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
     console.log(favorites);
+    paintFavorites();
   } else {
     console.log('FAVORITES NOT in LocalStorage');
-    console.log(favorites);
   }
-  paintFavorites();
 }
 //FAVORITES----------------
 //handleFavorite
@@ -119,6 +114,7 @@ function handleFavorite(ev) {
     }
   }
   paintFavorites();
+  setInLocalStorage();
 }
 
 //update Favorites array
@@ -139,14 +135,19 @@ function arrayFavUpdate(selectedSerie) {
 function paintFavorites() {
   console.log(favorites);
   let favHtml = '';
-  for (const favorite of favorites) {
-    getImageUrlFav(favorite);
-    favHtml += `
-    <li class="favorites--container series--favorite" id="${favorite.id}">
-        <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
-        <h2>${favorite.name}</h2>
-        <button class="favorites--buttonX">X</button>
-    </li>`;
+  favorites = [];
+  if (favorites !== []) {
+    //da error--------------------------------------------
+    for (const favorite of favorites) {
+      getImageUrlFav(favorite);
+      favHtml += `
+      <li class="favorites--container series--favorite" id="${favorite.id}">
+          <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
+          <h2>${favorite.name}</h2>
+          <button class="favorites--Xbutton js__Xbutton">X</button>
+      </li>`;
+    }
+    xBtnfavListener();
   }
   favoritesResults.innerHTML = favHtml;
   setInLocalStorage();
@@ -162,13 +163,27 @@ function isFavorite(serie) {
   }
   classFav = '';
 }
-//get image url
+//get Fav image url
 function getImageUrlFav(favorite) {
   if (favorite.image === null) {
     favoriteImage = `https://via.placeholder.com/210x295/7C7E29/ffff/?text=${favorite.name}`;
   } else {
     favoriteImage = favorite.image.medium;
   }
+}
+//Fav reset
+function handleResetFavorites(ev) {
+  ev.preventDefault();
+  favorites = [];
+  localStorage.removeItem(favorites);
+  paintFavorites();
+}
+//Fav reset---------------------------------------------------pendiente
+function handleXButtonFavorites(ev) {
+  ev.preventDefault();
+  const selectedItem = ev.currentTarget;
+  favorites.remove(selectedItem);
+  paintFavorites();
 }
 
 //SERIES------------
@@ -201,8 +216,8 @@ function handleGetSeries(ev) {
   controlLocalStorage();
 }
 //Initial functions used on loading webpage ------------------------------------------------------
-document.addEventListener('load', handleGetSeries);
 paintFavorites();
+document.addEventListener('load', handleGetSeries);
 document.addEventListener('load', favListener);
 
 //LISTENERS---------------------------------------------------------------------------------------
@@ -214,5 +229,12 @@ function favListener() {
   const seriesHTML = document.querySelectorAll('.series--container');
   for (const serieHTML of seriesHTML) {
     serieHTML.addEventListener('click', handleFavorite);
+  }
+}
+resetBtn.addEventListener('click', handleResetFavorites);
+function xBtnfavListener() {
+  const xBtns = document.querySelectorAll('.js__Xbutton');
+  for (const xBtn of xBtns) {
+    xBtn.addEventListener('click', handleXButtonFavorites);
   }
 }
