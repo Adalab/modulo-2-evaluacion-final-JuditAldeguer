@@ -82,49 +82,39 @@ function controlLocalStorage() {
 //FAVORITES----------------
 //handleFavorite
 function handleFavorite(ev) {
-  //const selectedSerie = parseInt(ev.currentTarget.id);
-  const selectedSerie = ev.currentTarget;
-  console.log(selectedSerie);
-  //const selectedId = selectedSerie.id;
+  const selectedSerie = parseInt(ev.currentTarget.id);
+  const selectedSerieHTML = ev.currentTarget;
   const seriesHTML = document.querySelectorAll('.series--container');
-  for (const serieHtml of seriesHTML) {
-    //for (const serie of series) {
+  for (const serie of series) {
     classFav;
-    debugger;
-    if (serieHtml.innerHTML === selectedSerie.innerHTML) {
-      //if (serie.id === selectedSerie.id) {
+    if (serie.id === selectedSerie) {
       classFav = 'series--favorite';
-      serieHtml.classList.toggle(classFav);
-      // favorites.push(serieHtml);
-      arrayFavUpdate(serieHtml); // función
-      favoritesResults.innerHTML += serieHtml;
+      arrayFavUpdate(selectedSerie); // función
+      for (const serieHtml of seriesHTML) {
+        if (serieHtml.innerHTML === selectedSerieHTML.innerHTML) {
+          serieHtml.classList.toggle(classFav);
+        }
+      }
     } else {
       classFav = '';
     }
-    paintFavorites();
   }
+  paintFavorites();
 }
 
 //update Favorites array
-function arrayFavUpdate(serieHtml) {
-  //for (let i = 0; i < series.length; i++) {
-  //const serie = series[i];
-  const favoritesFound = favorites.findIndex((fav) => {
-    return fav.id === selectedMovie;
+function arrayFavUpdate(selectedSerie) {
+  const objetClicked = series.find((serie) => {
+    return serie.id === selectedSerie;
   });
-  if (serieHtml.classList.contains('series--favorite')) {
-    favorites.push(serieHtml);
-    if (favoritesFound === -1) {
-      favorites.push(objetClicked);
-    } else {
-      favorites.splice(favoritesFound, 1);
-    }
-    // } else {
-    //   if (favorites) {
-    //     favorites.remove(serieHtml);
-    //   }
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === selectedSerie;
+  });
+  if (favoritesFound === -1) {
+    favorites.push(objetClicked);
+  } else {
+    favorites.splice(favoritesFound, 1);
   }
-  // }
 }
 //PaintFavorites
 function paintFavorites() {
