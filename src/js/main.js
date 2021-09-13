@@ -66,7 +66,6 @@ function setInLocalStorage() {
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
   if (favorites.length !== 0) {
-    //da error-------------------------------------
     const stringFavorites = JSON.stringify(favorites);
     localStorage.setItem('fav', stringFavorites);
   }
@@ -83,6 +82,10 @@ function controlLocalStorage() {
     getFromAPI();
   }
   paintSeries();
+  favoritesControl();
+}
+//control Favorites
+function favoritesControl() {
   const localStorageFavorites = localStorage.getItem('fav');
   if (localStorageFavorites !== null) {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
@@ -93,6 +96,7 @@ function controlLocalStorage() {
   } else {
     console.log('FAVORITES NOT in LocalStorage');
   }
+  paintFavorites;
 }
 //FAVORITES----------------
 //handleFavorite
@@ -222,14 +226,12 @@ function handleGetSeries(ev) {
 //funciones iniciales
 function Initial() {
   debugger; //--------------------------------- no entra
-  controlLocalStorage();
-  paintFavorites();
+  favoritesControl();
   favListener();
   xBtnfavListener();
 }
 //Initial functions used on loading webpage ------------------------------------------------------
-controlLocalStorage();
-paintFavorites();
+favoritesControl();
 favListener();
 xBtnfavListener();
 document.addEventListener('load', Initial);
