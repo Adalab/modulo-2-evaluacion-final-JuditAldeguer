@@ -65,7 +65,7 @@ function setInLocalStorage() {
     const stringSeries = JSON.stringify(series);
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
-  if (favorites !== []) {
+  if (favorites.length !== 0) {
     //da error-------------------------------------
     const stringFavorites = JSON.stringify(favorites);
     localStorage.setItem('fav', stringFavorites);
@@ -83,8 +83,8 @@ function controlLocalStorage() {
     getFromAPI();
   }
   paintSeries();
-  const localStorageFavorites = localStorage.getItem('favorites');
-  if (localStorageFavorites !== null || []) {
+  const localStorageFavorites = localStorage.getItem('fav');
+  if (localStorageFavorites !== null) {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
@@ -136,8 +136,7 @@ function arrayFavUpdate(selectedSerie) {
 function paintFavorites() {
   console.log(favorites);
   let favHtml = '';
-  if (favorites !== []) {
-    //da error--------------------------------------------
+  if (favorites.length !== 0) {
     for (const favorite of favorites) {
       getImageUrlFav(favorite);
       favHtml += `
@@ -154,14 +153,15 @@ function paintFavorites() {
 }
 //isFavorite
 function isFavorite(serie) {
-  for (const favorite of favorites) {
-    if (favorite === serie) {
+  if (favorites.length !== 0) {
+    const Found = favorites.findIndex((favorite) => favorite.id === serie.id);
+    console.log(Found);
+    if (Found !== -1) {
       classFav = 'series--favorite';
     } else {
       classFav = '';
     }
   }
-  classFav = '';
 }
 //get Fav image url
 function getImageUrlFav(favorite) {
@@ -175,8 +175,9 @@ function getImageUrlFav(favorite) {
 function handleResetFavorites(ev) {
   ev.preventDefault();
   favorites = [];
-  localStorage.removeItem(favorites);
+  localStorage.removeItem('fav');
   paintFavorites();
+  paintSeries();
 }
 //Fav reset---------------------------------------------------pendiente
 function handleXButtonFavorites(ev) {
@@ -215,10 +216,14 @@ function handleGetSeries(ev) {
   ev.preventDefault();
   controlLocalStorage();
 }
+//funciones iniciales
+function Initial() {
+  handleGetSeries();
+  favListener();
+}
 //Initial functions used on loading webpage ------------------------------------------------------
 paintFavorites();
-document.addEventListener('load', handleGetSeries);
-document.addEventListener('load', favListener);
+document.addEventListener('load', Initial);
 
 //LISTENERS---------------------------------------------------------------------------------------
 searchBtn.addEventListener('click', handleGetSeries);
