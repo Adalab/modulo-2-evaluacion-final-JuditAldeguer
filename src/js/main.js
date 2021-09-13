@@ -57,7 +57,6 @@ function arrayConverter(all) {
     });
   }
   setInLocalStorage();
-  console.log(series);
 }
 //set in LocalStorage
 function setInLocalStorage() {
@@ -91,7 +90,6 @@ function favoritesControl() {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
-    console.log(favorites);
     paintFavorites();
   } else {
     console.log('FAVORITES NOT in LocalStorage');
@@ -179,7 +177,7 @@ function handleResetFavorites(ev) {
   paintFavorites();
   paintSeries();
 }
-//Fav Button X ---------------------------------------------------pendiente
+//Fav Button X
 function handleXButtonFavorites(ev) {
   ev.preventDefault();
   const selectedXButton = ev.currentTarget;
