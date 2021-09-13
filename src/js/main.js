@@ -104,7 +104,7 @@ function handleFavorite(ev) {
     classFav;
     if (serie.id === selectedSerie) {
       classFav = 'series--favorite';
-      arrayFavUpdate(selectedSerie); // función
+      arrayFavUpdate(selectedSerie);
       for (const serieHtml of seriesHTML) {
         if (serieHtml.innerHTML === selectedSerieHTML.innerHTML) {
           serieHtml.classList.toggle(classFav);
@@ -115,7 +115,6 @@ function handleFavorite(ev) {
     }
   }
   paintFavorites();
-  //setInLocalStorage();//nuevo, da error a partir de aqui--------------------------------
 }
 
 //update Favorites array
@@ -134,7 +133,6 @@ function arrayFavUpdate(selectedSerie) {
 }
 //PaintFavorites
 function paintFavorites() {
-  console.log(favorites);
   let favHtml = '';
   if (favorites.length !== 0) {
     for (const favorite of favorites) {
@@ -146,7 +144,6 @@ function paintFavorites() {
           <h4 class="favorites--title">${favorite.name}</h4>
       </li>`;
     }
-    xBtnfavListener();
   }
   favoritesResults.innerHTML = favHtml;
   setInLocalStorage();
@@ -155,7 +152,6 @@ function paintFavorites() {
 function isFavorite(serie) {
   if (favorites.length !== 0) {
     const Found = favorites.findIndex((favorite) => favorite.id === serie.id);
-    console.log(Found);
     if (Found !== -1) {
       classFav = 'series--favorite';
     } else {
@@ -179,12 +175,17 @@ function handleResetFavorites(ev) {
   paintFavorites();
   paintSeries();
 }
-//Fav reset---------------------------------------------------pendiente
+//Fav Button X ---------------------------------------------------pendiente
 function handleXButtonFavorites(ev) {
-  debugger;
   ev.preventDefault();
-  const selectedItem = ev.currentTarget;
-  favorites.remove(selectedItem);
+  const selectedXButton = ev.currentTarget;
+  const selectedFavorite = parseInt(selectedXButton.parentElement.id);
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === selectedFavorite;
+  });
+  if (favoritesFound !== -1) {
+    favorites.splice(favoritesFound, 1);
+  }
   paintFavorites();
   paintSeries();
 }
@@ -221,12 +222,16 @@ function handleGetSeries(ev) {
 //funciones iniciales
 function Initial() {
   debugger; //--------------------------------- no entra
-  handleGetSeries();
+  controlLocalStorage();
+  paintFavorites();
   favListener();
+  xBtnfavListener();
 }
 //Initial functions used on loading webpage ------------------------------------------------------
 controlLocalStorage();
 paintFavorites();
+favListener();
+xBtnfavListener();
 document.addEventListener('load', Initial);
 
 //LISTENERS---------------------------------------------------------------------------------------
