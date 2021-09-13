@@ -39,14 +39,9 @@
     margin: 2px 0;
     &__div {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: start;
       align-items: center;
-      float: right;
-      @include tablet {
-        flex-direction: row;
-        justify-content: start;
-      }
     }
   }
   &--Xbutton {
