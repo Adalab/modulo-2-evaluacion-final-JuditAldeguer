@@ -1,7 +1,7 @@
 main {
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
+  min-height: 85vh;
   height: max-content;
   overflow-wrap: scroll;
 }
@@ -18,6 +18,17 @@ main {
   &--favorite {
     padding: 5px;
     text-align: center;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    &__title {
+      padding: 10px 0;
+    }
+    &__reset {
+      margin: 10px 0;
+    }
   }
 }
 .result {

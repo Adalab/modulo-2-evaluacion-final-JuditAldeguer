@@ -25,8 +25,9 @@
 
 .favorites {
   &--container {
+    border: solid black 1px;
     text-decoration: none;
-    display: inline;
+    display: inline-block;
   }
   &--img {
     width: 50px;

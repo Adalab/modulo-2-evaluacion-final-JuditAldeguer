@@ -181,10 +181,12 @@ function handleResetFavorites(ev) {
 }
 //Fav reset---------------------------------------------------pendiente
 function handleXButtonFavorites(ev) {
+  debugger;
   ev.preventDefault();
   const selectedItem = ev.currentTarget;
   favorites.remove(selectedItem);
   paintFavorites();
+  paintSeries();
 }
 
 //SERIES------------
@@ -218,10 +220,12 @@ function handleGetSeries(ev) {
 }
 //funciones iniciales
 function Initial() {
+  debugger; //--------------------------------- no entra
   handleGetSeries();
   favListener();
 }
 //Initial functions used on loading webpage ------------------------------------------------------
+controlLocalStorage();
 paintFavorites();
 document.addEventListener('load', Initial);
 

@@ -5,8 +5,9 @@
   opacity: 0.9;
   width: 100%;
   padding: 5px 1rem;
-  color: white;
+  color: $white;
   background-color: rgb(96, 121, 168);
+  border: $white 1px solid;
   display: flex;
   justify-content: flex-end;
 }
