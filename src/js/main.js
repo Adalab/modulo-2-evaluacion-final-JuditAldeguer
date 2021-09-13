@@ -57,7 +57,6 @@ function arrayConverter(all) {
     });
   }
   setInLocalStorage();
-  console.log(series);
 }
 //set in LocalStorage
 function setInLocalStorage() {
@@ -91,7 +90,6 @@ function favoritesControl() {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
     console.log('FAVORITES already in LocalStorage');
-    console.log(favorites);
     paintFavorites();
   } else {
     console.log('FAVORITES NOT in LocalStorage');
@@ -151,6 +149,7 @@ function paintFavorites() {
   }
   favoritesResults.innerHTML = favHtml;
   setInLocalStorage();
+  xBtnfavListener();
 }
 //isFavorite
 function isFavorite(serie) {
@@ -179,7 +178,7 @@ function handleResetFavorites(ev) {
   paintFavorites();
   paintSeries();
 }
-//Fav Button X ---------------------------------------------------pendiente
+//Fav Button X
 function handleXButtonFavorites(ev) {
   ev.preventDefault();
   const selectedXButton = ev.currentTarget;
@@ -212,7 +211,7 @@ function paintSeries() {
     htmlText += `
         <div class="series--container ${classFav}" id="${serie.id}">
             <img src="${serieImage}" alt="${serie.name}" class="img"></img>
-            <h2>${serie.name}</h2>
+            <h2 class="series--h2">${serie.name}</h2>
         </div>`;
   }
   resultsSection.innerHTML = htmlText;
@@ -223,18 +222,8 @@ function handleGetSeries(ev) {
   ev.preventDefault();
   controlLocalStorage();
 }
-//funciones iniciales
-function Initial() {
-  debugger; //--------------------------------- no entra
-  favoritesControl();
-  favListener();
-  xBtnfavListener();
-}
 //Initial functions used on loading webpage ------------------------------------------------------
-favoritesControl();
-favListener();
-xBtnfavListener();
-document.addEventListener('load', Initial);
+window.addEventListener('load', favoritesControl);
 
 //LISTENERS---------------------------------------------------------------------------------------
 searchBtn.addEventListener('click', handleGetSeries);

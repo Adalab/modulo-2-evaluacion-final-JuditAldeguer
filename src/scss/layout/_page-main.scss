@@ -1,7 +1,7 @@
 main {
   display: flex;
   flex-direction: row;
-  min-height: 85vh;
+  min-height: 100vh;
   height: max-content;
   overflow-wrap: scroll;
 }
@@ -39,5 +39,4 @@ main {
   background-color: cadetblue;
   width: 75%;
   height: auto;
-  //height: max-content;
 }
