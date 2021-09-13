@@ -212,7 +212,7 @@ function paintSeries() {
     isFavorite(serie);
     htmlText += `
         <div class="series--container ${classFav}" id="${serie.id}">
-            <img src="${serieImage}" alt="${serie.name}" class="img"></img>
+            <img src="${serieImage}" alt="${serie.name}" class="series--img"></img>
             <h2 class="series--h2">${serie.name}</h2>
         </div>`;
   }
