@@ -9,11 +9,20 @@ Aqui dejo las anotaciones para la evaluación y también más a bajo he dejado l
 ## Mi proyecto
 
 - Dónde localizarlo  
-   Mi trabajo se encuentra en el repositorio de Github Page y puedes encontrar facilmente el link de acceso a la última versión de mi **rama master** en el apartado _About_. [Acceder al enlace](http://beta.adalab.es/modulo-2-evaluacion-final-JuditAldeguer/)  
-   Deseo destacar que he seguido un **diseño responsive** básico pero funcional. Sin embargo, no he conseguido hacer que el texto se adaptara a su contenido lo que provoca que visualmente no sea uniforme - seguiré trabajando en ello. Por otro lado, como podéis ver, este trabajo consta de dos ramas **rama dev** para todo lo que está en desarrollo y **rama dev** que contiene el producto final.
+   Mi trabajo se encuentra en el repositorio de Github Page y puedes encontrar facilmente el link de acceso a la última versión de mi **rama master** en el apartado _About_. [Acceder a la web](http://beta.adalab.es/modulo-2-evaluacion-final-JuditAldeguer/)
+
+  Deseo destacar que he seguido un **diseño responsive**, que pese a ser básico, es funcional. Sin embargo, observarás que no he conseguido hacer que el texto se adaptara a su contenido, lo que provoca que visualmente no sea uniforme - seguiré trabajando en ello.
+
+  Por otro lado, como podrás ver, este trabajo consta de dos ramas **rama dev** para todo lo que está en desarrollo y **rama master** que contiene el producto final.
 
 - Qué es  
-  Se trata de una página buscadora de series con aspecto afín al diseño indicado y las funcionalidades solicitadas.
+  Se trata de una página como Buscador de series con aspecto afín al diseño indicado y las funcionalidades solicitadas:
+
+  - Obtener información de una **API externa**
+  - Posibilidad de indicar cuales son las series favoritas del usuario/a
+  - Guardar dicha información en **LocalStorage**
+  - Posibilidad de resetar la información de favoritas con el botón reset
+  - Destacar dichas series marcadas por el/la usuario/a como favoritas
 
 - Qué partes tiene  
   Contiene tres partes claras:
