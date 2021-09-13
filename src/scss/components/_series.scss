@@ -15,7 +15,9 @@
   }
   &--h2 {
     text-align: center;
-    word-wrap: normal;
+    // word-wrap: normal;
+    // white-space: nowrap;
+    // overflow: scroll;
     // font-size: 1vw; Pendiente de ver cómo ajustar título al tamaño de la caja
   }
   //modifier
@@ -35,10 +37,23 @@
     display: inline-block;
     width: 100%;
     margin: 2px 0;
+    &__div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      float: right;
+      @include tablet {
+        flex-direction: row;
+        justify-content: start;
+      }
+    }
   }
   &--Xbutton {
     position: relative;
     float: right;
+    top: -10px;
+    right: -5px;
   }
   &--img {
     width: 50px;
@@ -46,7 +61,7 @@
     float: left;
   }
   &--title {
-    margin: 2em 0;
+    margin: auto;
     color: $grey;
   }
 }

@@ -142,8 +142,10 @@ function paintFavorites() {
       favHtml += `
       <li class="favorites--container series--favorite" id="${favorite.id}">
           <button class="favorites--Xbutton js__Xbutton">X</button>
-          <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
-          <h4 class="favorites--title">${favorite.name}</h4>
+          <div class="favorites--container__div">
+            <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
+            <h4 class="favorites--title">${favorite.name}</h4>
+          </div>
       </li>`;
     }
   }
