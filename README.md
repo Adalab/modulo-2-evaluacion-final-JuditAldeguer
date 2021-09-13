@@ -9,30 +9,26 @@ Aqui dejo las anotaciones para la evaluación y también más a bajo he dejado l
 ## Mi proyecto
 
 - Dónde localizarlo  
-   Mi trabajo se encuentra en el repositorio de Github Page y puedes encontrar facilmente el link de acceso a la última versión de mi **rama master** en el apartado _About_. [Acceder al enlace](http://beta.adalab.es/modulo-1-evaluacion-final-JuditAldeguer/)  
-   Deseo destacar que he confeccionado un **menú hamburguesa** solamente con HTML y CSS el cual + un icono en el título del navegados, que se encuentran en mi **rama dev** para que este no alterara el aspecto del diseño solicitado.  
-   Indicar que también existe uns tercera rama la cual he usado para realizar las pruebas y no es un producto final (rama _InProcess_).
+   Mi trabajo se encuentra en el repositorio de Github Page y puedes encontrar facilmente el link de acceso a la última versión de mi **rama master** en el apartado _About_. [Acceder al enlace](http://beta.adalab.es/modulo-2-evaluacion-final-JuditAldeguer/)  
+   Deseo destacar que he seguido un **diseño responsive** básico pero funcional. Sin embargo, no he conseguido hacer que el texto se adaptara a su contenido lo que provoca que visualmente no sea uniforme - seguiré trabajando en ello. Por otro lado, como podéis ver, este trabajo consta de dos ramas **rama dev** para todo lo que está en desarrollo y **rama dev** que contiene el producto final.
 
 - Qué es  
-  Se trata de una pagina inicio con aspecto limipo según el diseño solicitado.
+  Se trata de una página buscadora de series con aspecto afín al diseño indicado y las funcionalidades solicitadas.
 
 - Qué partes tiene  
   Contiene tres partes claras:
 
   1.  El _header_
-      - Menú hamburguesa
-      - Sección introductoria que incluye título, texto y botón
+      - Sección introductoria que incluye el título de la página.
   2.  El _main_
-      - Info
-      - Reasons
+      - Buscador y Sección favoritos
+      - Resultados de la búsqueda
   3.  El _footer_
       - Copy-right
-      - Links section1
-      - Links section 2
 
 - Qué tecnologías usa
   He usado los lenguages HTML, CSS y JavaScript.  
-  El preprocesador de CSS usado ha sido SAAS pues garcias al starter-Kit he podido usar diferentes erramientas como las _partials_ y la _automatización de gulp_.
+  El preprocesador de CSS usado ha sido SAAS pues garcias al starter-Kit he podido usar diferentes herramientas como las _partials_ y la _automatización de gulp_.
 
 - Cómo se instala  
   Gracias al Starter-Kit la instalación es muy simple, únicamente se precisa de _Visual Studio Code_ con las correspondientes extensiones, un navegador como, por ejemplo, _Chrome_ y _Github_.
