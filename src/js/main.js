@@ -141,9 +141,9 @@ function paintFavorites() {
       getImageUrlFav(favorite);
       favHtml += `
       <li class="favorites--container series--favorite" id="${favorite.id}">
-          <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
-          <h2>${favorite.name}</h2>
           <button class="favorites--Xbutton js__Xbutton">X</button>
+          <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
+          <h4 class="favorites--title">${favorite.name}</h4>
       </li>`;
     }
     xBtnfavListener();

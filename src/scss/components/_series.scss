@@ -16,6 +16,7 @@
   //modifiers
   &--favorite {
     background-color: $green;
+    color: $grey;
   }
 
   // &--hidden {
@@ -25,17 +26,26 @@
 
 .favorites {
   &--container {
-    border: solid black 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: solid $grey 1px;
     text-decoration: none;
     display: inline-block;
+    width: 100%;
+    margin: 2px 0;
+  }
+  &--Xbutton {
+    position: relative;
+    float: right;
   }
   &--img {
     width: 50px;
     height: 100px;
+    float: left;
   }
-  &--Xbutton {
-    position: relative;
-    top: 0;
-    float: right;
+  &--title {
+    margin: 2em 0;
+    color: $grey;
   }
 }
