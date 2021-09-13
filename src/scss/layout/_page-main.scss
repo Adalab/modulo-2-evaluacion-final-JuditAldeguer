@@ -3,20 +3,24 @@ body {
 }
 main {
   display: flex;
-  flex-direction: row;
-  min-height: 100vh;
-  height: max-content;
-  overflow-wrap: scroll;
+  flex-direction: column;
+  width: 100%;
+  @include tablet {
+    flex-direction: row;
+    min-height: 100vh;
+    height: max-content;
+    overflow-wrap: scroll;
+  }
 }
 
 .search {
   padding: 10px;
   border: $border;
   background-color: cornsilk;
-  width: 25%;
   height: auto;
   @include tablet {
     min-width: 255px;
+    width: 25%;
   }
   &--favorite {
     padding: 5px;
@@ -36,10 +40,12 @@ main {
 }
 .result {
   padding: 20px 10px 50px 10px;
-  color: whitesmoke;
+  color: $white_smoke;
   text-align: center;
   border: $border;
   background-color: cadetblue;
-  width: 75%;
   height: auto;
+  @include tablet {
+    width: 75%;
+  }
 }

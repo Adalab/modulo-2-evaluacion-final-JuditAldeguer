@@ -142,8 +142,10 @@ function paintFavorites() {
       favHtml += `
       <li class="favorites--container series--favorite" id="${favorite.id}">
           <button class="favorites--Xbutton js__Xbutton">X</button>
-          <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
-          <h4 class="favorites--title">${favorite.name}</h4>
+          <div class="favorites--container__div">
+            <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
+            <h4 class="favorites--title">${favorite.name}</h4>
+          </div>
       </li>`;
     }
   }
@@ -210,7 +212,7 @@ function paintSeries() {
     isFavorite(serie);
     htmlText += `
         <div class="series--container ${classFav}" id="${serie.id}">
-            <img src="${serieImage}" alt="${serie.name}" class="img"></img>
+            <img src="${serieImage}" alt="${serie.name}" class="series--img"></img>
             <h2 class="series--h2">${serie.name}</h2>
         </div>`;
   }
