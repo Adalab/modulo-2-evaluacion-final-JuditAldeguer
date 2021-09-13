@@ -1,7 +1,9 @@
 .series {
   &--container {
-    height: max-content;
-    width: max-content;
+    max-width: 240px;
+    max-height: 370px;
+    width: 240px;
+    height: 370px;
     border: $white 2px solid;
     display: inline-block;
     padding: 5px;
