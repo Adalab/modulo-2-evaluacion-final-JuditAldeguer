@@ -14,7 +14,9 @@
     height: 295px;
   }
   &--h2 {
+    text-align: center;
     word-wrap: normal;
+    // font-size: 1vw; Pendiente de ver cómo ajustar título al tamaño de la caja
   }
   //modifier
   &--favorite {
