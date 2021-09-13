@@ -1,3 +1,6 @@
+body {
+  border: $border;
+}
 main {
   display: flex;
   flex-direction: row;
@@ -8,7 +11,7 @@ main {
 
 .search {
   padding: 10px;
-  border: white solid 1px;
+  border: $border;
   background-color: cornsilk;
   width: 25%;
   height: auto;
@@ -35,7 +38,7 @@ main {
   padding: 20px 10px 50px 10px;
   color: whitesmoke;
   text-align: center;
-  border: white solid 1px;
+  border: $border;
   background-color: cadetblue;
   width: 75%;
   height: auto;
