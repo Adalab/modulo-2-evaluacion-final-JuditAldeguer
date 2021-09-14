@@ -7,6 +7,7 @@ const searchBtn = document.querySelector('.js_search_btn');
 //favorites
 const favoritesResults = document.querySelector('.js_results_favorites');
 const resetBtn = document.querySelector('.js_reset_btn');
+const numFavBtn = document.querySelector('.js_num_fav_btn');
 //results
 const resultsSection = document.querySelector('.js_results');
 //global arrays / variables
@@ -15,6 +16,7 @@ let series = [];
 let classFav;
 let serieImage;
 let favoriteImage;
+let languages = ['English', 'Spanish', 'Portuguese'];
 
 //FUNCTIONS---------------------------------------------------------------------------------------
 //requests to the server API
@@ -43,7 +45,12 @@ function arrayConverter(all) {
   if (all.length > 10) {
     const newAll = all.slice(0, 11);
     series = newAll.map((serieEl) => {
-      Object = { name: serieEl.name, id: serieEl.id, image: serieEl.image };
+      Object = {
+        name: serieEl.name,
+        id: serieEl.id,
+        image: serieEl.image,
+        language: serieEl.language,
+      };
       return Object;
     });
   } else {
@@ -52,6 +59,7 @@ function arrayConverter(all) {
         name: serieEl.show.name,
         id: serieEl.show.id,
         image: serieEl.show.image,
+        language: serieEl.show.language,
       };
       return Object;
     });
@@ -172,6 +180,18 @@ function getImageUrlFav(favorite) {
     favoriteImage = favorite.image.medium;
   }
 }
+
+// fav recomendation language
+function languageRecomender(serie) {
+  let isRecomended;
+  const findRecomend = languages.find((lang) => serie.language === lang);
+  if (findRecomend) {
+    isRecomended = ' Serie recomendada';
+  } else {
+    isRecomended = '';
+  }
+  return isRecomended;
+}
 //Fav reset
 function handleResetFavorites(ev) {
   ev.preventDefault();
@@ -194,6 +214,11 @@ function handleXButtonFavorites(ev) {
   paintFavorites();
   paintSeries();
 }
+//num Fav
+function handleClickNumFav(ev) {
+  ev.preventDefault();
+  console.log(favorites.length);
+}
 
 //SERIES------------
 //get image url
@@ -210,10 +235,12 @@ function paintSeries() {
   for (const serie of series) {
     getImageUrl(serie);
     isFavorite(serie);
+    const isRecomended = languageRecomender(serie);
     htmlText += `
         <div class="series--container ${classFav}" id="${serie.id}">
             <img src="${serieImage}" alt="${serie.name}" class="series--img"></img>
             <h2 class="series--h2">${serie.name}</h2>
+            <small>${serie.language}${isRecomended}</small>
         </div>`;
   }
   resultsSection.innerHTML = htmlText;
@@ -245,3 +272,4 @@ function xBtnfavListener() {
     xBtn.addEventListener('click', handleXButtonFavorites);
   }
 }
+numFavBtn.addEventListener('click', handleClickNumFav);
