@@ -80,12 +80,10 @@ function setInLocalStorage() {
 //LocalStorage CONTROL
 function controlLocalStorage() {
   const localStorageSeries = localStorage.getItem(`series${input.value}`);
-  const StoragedSeries = JSON.parse(localStorageSeries);
-  if (StoragedSeries !== null) {
-    series = StoragedSeries;
-    console.log('SERIES already in LocalStorage');
+  const storagedSeries = JSON.parse(localStorageSeries);
+  if (storagedSeries !== null) {
+    series = storagedSeries;
   } else {
-    console.log('SERIES NOT in LocalStorage');
     getFromAPI();
   }
   paintSeries();
