@@ -41,27 +41,27 @@ function getFromAPI() {
 }
 //function conver array from API
 function arrayConverter(all) {
-  let Object;
+  let object;
   if (all.length > 10) {
     const newAll = all.slice(0, 11);
     series = newAll.map((serieEl) => {
-      Object = {
+      object = {
         name: serieEl.name,
         id: serieEl.id,
         image: serieEl.image,
         language: serieEl.language,
       };
-      return Object;
+      return object;
     });
   } else {
     series = all.map((serieEl) => {
-      Object = {
+      object = {
         name: serieEl.show.name,
         id: serieEl.show.id,
         image: serieEl.show.image,
         language: serieEl.show.language,
       };
-      return Object;
+      return object;
     });
   }
   setInLocalStorage();
@@ -95,10 +95,7 @@ function favoritesControl() {
   if (localStorageFavorites !== null) {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
-    console.log('FAVORITES already in LocalStorage');
     paintFavorites();
-  } else {
-    console.log('FAVORITES NOT in LocalStorage');
   }
   paintFavorites;
 }
@@ -164,8 +161,8 @@ function paintFavorites() {
 //isFavorite
 function isFavorite(serie) {
   if (favorites.length !== 0) {
-    const Found = favorites.findIndex((favorite) => favorite.id === serie.id);
-    if (Found !== -1) {
+    const found = favorites.findIndex((favorite) => favorite.id === serie.id);
+    if (found !== -1) {
       classFav = 'series--favorite';
     } else {
       classFav = '';
@@ -217,7 +214,8 @@ function handleXButtonFavorites(ev) {
 //num Fav
 function handleClickNumFav(ev) {
   ev.preventDefault();
-  console.log(favorites.length);
+  const numFavText = document.querySelector('.js_num_fav_text');
+  numFavText.innerHTML = `Tienes ${favorites.length} series marcadas como favoritas`;
 }
 
 //SERIES------------
