@@ -146,6 +146,7 @@ function paintFavorites() {
   let favHtml = '';
   if (favorites.length !== 0) {
     for (const favorite of favorites) {
+      const isRecomended = languageRecomenderFav(favorite);
       getImageUrlFav(favorite);
       favHtml += `
       <li class="favorites--container series--favorite" id="${favorite.id}">
@@ -153,6 +154,7 @@ function paintFavorites() {
           <div class="favorites--container__div">
             <img src="${favoriteImage}" alt="${favorite.name}" class="favorites--img"></img>
             <h4 class="favorites--title">${favorite.name}</h4>
+            <small>Language: ${favorite.language}. ${isRecomended}</small>
           </div>
       </li>`;
     }
@@ -182,11 +184,11 @@ function getImageUrlFav(favorite) {
 }
 
 // fav recomendation language
-function languageRecomender(serie) {
+function languageRecomenderFav(favorite) {
   let isRecomended;
-  const findRecomend = languages.find((lang) => serie.language === lang);
+  const findRecomend = languages.find((lang) => favorite.language === lang);
   if (findRecomend) {
-    isRecomended = ' Serie recomendada';
+    isRecomended = 'Serie recomendada';
   } else {
     isRecomended = '';
   }
@@ -229,6 +231,17 @@ function getImageUrl(serie) {
     serieImage = serie.image.medium;
   }
 }
+//recomendation language
+function languageRecomender(serie) {
+  let isRecomended;
+  const findRecomend = languages.find((lang) => serie.language === lang);
+  if (findRecomend) {
+    isRecomended = 'Serie recomendada';
+  } else {
+    isRecomended = '';
+  }
+  return isRecomended;
+}
 //paint series
 function paintSeries() {
   let htmlText = '<h3>Search result</h3>';
@@ -240,7 +253,7 @@ function paintSeries() {
         <div class="series--container ${classFav}" id="${serie.id}">
             <img src="${serieImage}" alt="${serie.name}" class="series--img"></img>
             <h2 class="series--h2">${serie.name}</h2>
-            <small>${serie.language}${isRecomended}</small>
+            <small>Language: ${serie.language}. ${isRecomended}</small>
         </div>`;
   }
   resultsSection.innerHTML = htmlText;
