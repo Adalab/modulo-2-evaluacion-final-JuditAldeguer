@@ -44,7 +44,8 @@ main {
   text-align: center;
   border: $border;
   background-color: cadetblue;
-  height: auto;
+  height: max-content;
+  min-height: 100vh;
   @include tablet {
     width: 75%;
   }

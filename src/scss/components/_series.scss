@@ -4,8 +4,8 @@
     display: inline-block;
     padding: 5px;
     background-color: $dark_blue;
-    width: 134px;
-    height: 160px;
+    width: 260px;
+    height: 130px;
     @include tablet {
       width: 240px;
       height: 390px;
@@ -23,7 +23,7 @@
     text-align: center;
     font-size: 1em;
     @include tablet {
-      font-size: 1.5em;
+      font-size: 0.9em;
       // word-wrap: normal;
       // white-space: nowrap;
       // overflow: scroll;
