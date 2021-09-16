@@ -197,7 +197,6 @@ function handleResetFavorites(ev) {
 //Fav Button X
 function handleXButtonFavorites(ev) {
   ev.preventDefault();
-  debugger;
   const selectedXButton = ev.currentTarget;
   const selectedFavorite = parseInt(selectedXButton.parentElement.id);
   const favoritesFound = favorites.findIndex((fav) => {
