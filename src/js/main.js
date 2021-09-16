@@ -72,10 +72,8 @@ function setInLocalStorage() {
     const stringSeries = JSON.stringify(series);
     localStorage.setItem(`series${input.value}`, stringSeries);
   }
-  if (favorites.length !== 0) {
-    const stringFavorites = JSON.stringify(favorites);
-    localStorage.setItem('fav', stringFavorites);
-  }
+  const stringFavorites = JSON.stringify(favorites);
+  localStorage.setItem('fav', stringFavorites);
 }
 //LocalStorage CONTROL
 function controlLocalStorage() {
@@ -95,9 +93,8 @@ function favoritesControl() {
   if (localStorageFavorites !== null) {
     const StoragedFavorites = JSON.parse(localStorageFavorites);
     favorites = StoragedFavorites;
-    paintFavorites();
   }
-  paintFavorites;
+  paintFavorites();
 }
 //FAVORITES----------------
 //handleFavorite
@@ -200,6 +197,7 @@ function handleResetFavorites(ev) {
 //Fav Button X
 function handleXButtonFavorites(ev) {
   ev.preventDefault();
+  debugger;
   const selectedXButton = ev.currentTarget;
   const selectedFavorite = parseInt(selectedXButton.parentElement.id);
   const favoritesFound = favorites.findIndex((fav) => {
