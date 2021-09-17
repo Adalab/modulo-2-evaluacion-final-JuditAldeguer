@@ -7,7 +7,6 @@ const searchBtn = document.querySelector('.js_search_btn');
 //favorites
 const favoritesResults = document.querySelector('.js_results_favorites');
 const resetBtn = document.querySelector('.js_reset_btn');
-const numFavBtn = document.querySelector('.js_num_fav_btn');
 //results
 const resultsSection = document.querySelector('.js_results');
 //global arrays / variables
@@ -154,6 +153,8 @@ function paintFavorites() {
   favoritesResults.innerHTML = favHtml;
   setInLocalStorage();
   xBtnfavListener();
+  const numFavText = document.querySelector('.js_num_fav_text');
+  numFavText.innerHTML = `Tienes ${favorites.length} series marcadas como favoritas`;
 }
 //isFavorite
 function isFavorite(serie) {
@@ -207,12 +208,6 @@ function handleXButtonFavorites(ev) {
   }
   paintFavorites();
   paintSeries();
-}
-//num Fav
-function handleClickNumFav(ev) {
-  ev.preventDefault();
-  const numFavText = document.querySelector('.js_num_fav_text');
-  numFavText.innerHTML = `Tienes ${favorites.length} series marcadas como favoritas`;
 }
 
 //SERIES------------
@@ -278,4 +273,3 @@ function xBtnfavListener() {
     xBtn.addEventListener('click', handleXButtonFavorites);
   }
 }
-numFavBtn.addEventListener('click', handleClickNumFav);
